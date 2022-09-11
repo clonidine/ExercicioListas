@@ -1,41 +1,36 @@
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import entities.Pessoa;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Program {
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<Pessoa> pessoas = new ArrayList<>();
 
-        LocalDate d01 = LocalDate.parse("2022-07-20");
-        LocalDateTime d02 = LocalDateTime.parse("2022-07-20T01:30:26");
-        Instant d03 = Instant.parse("2022-07-20T01:30:26Z");
+        System.out.print("Quantas pessoas você quer registrar? ");
+        int capacidade = sc.nextInt();
 
-        LocalDate pastWeekLocalDate = d01.minusDays(7);
-        LocalDate nextWeekLocalDate = d01.plusDays(7);
+        for (int i = 0; i < capacidade; i++) {
+            sc.nextLine();
 
-        System.out.println("pastWeekLocalDate = " + pastWeekLocalDate);
-        System.out.println("nextWeekLocalDate = " + nextWeekLocalDate);
+            System.out.print("\nNome: ");
+            String nome = sc.nextLine();
 
-        LocalDateTime pastWeekLocalDateTime = d02.minusDays(7);
-        LocalDateTime nextWeekLocalDateTime = d02.plusDays(7);
+            System.out.print("Altura: ");
+            double altura = sc.nextDouble();
 
-        System.out.println("pastWeekLocalDateTime = " + pastWeekLocalDateTime);
-        System.out.println("nextWeekLocalDateTime = " + nextWeekLocalDateTime);
+            System.out.print("Ano de nascimento: ");
+            int anoDeNascimento = sc.nextInt();
 
-        Instant pastWeekInstant = d03.minus(7, ChronoUnit.DAYS);
-        Instant nextWeekInstant = d03.plus(7, ChronoUnit.DAYS);
+            Pessoa pessoa = new Pessoa(nome, altura, anoDeNascimento);
+            pessoas.add(pessoa);
+        }
 
-        System.out.println("pastWeekInstant = " + pastWeekInstant);
-        System.out.println("nextWeekInstant = " + nextWeekInstant);
-
-        Duration t1 = Duration.between(pastWeekLocalDate.atStartOfDay(), d01.atStartOfDay());
-        Duration t2 = Duration.between(pastWeekLocalDateTime, d02);
-        Duration t3 = Duration.between(pastWeekInstant, d03);
-        Duration t4 = Duration.between(d03, pastWeekInstant);
-
-        System.out.println("t1 dias = " + t1.toDays());
-        System.out.println("t2 dias = " + t2.toDays());
+        for (Pessoa pessoa : pessoas) {
+            System.out.println(pessoa);
+        }
     }
 }
